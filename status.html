@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Train Status | Indian Railway Management System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb);
+      color: #333;
+      animation: backgroundAnimation 10s infinite alternate;
+    }
+
+    @keyframes backgroundAnimation {
+      0% { background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb); }
+      50% { background: linear-gradient(to right, #a1c4fd, #c2e9fb, #d4fc79); }
+      100% { background: linear-gradient(to right, #ffecd2, #fcb69f, #ff9a9e); }
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff6f61, #de6262, #ffb88c);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      animation: headerGlow 3s infinite alternate;
+    }
+
+    @keyframes headerGlow {
+      0% { text-shadow: 0 0 10px #ff6f61, 0 0 20px #de6262; }
+      100% { text-shadow: 0 0 20px #ffb88c, 0 0 30px #ff6f61; }
+    }
+
+    nav {
+      background-color: #ff6f61;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      animation: navSlideIn 1s ease-out;
+    }
+
+    @keyframes navSlideIn {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    nav a.active {
+      color: #ffd700;
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    main {
+      padding: 2rem;
+      text-align: center;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #999;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ff6f61;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ffb88c;
+      transform: scale(1.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      animation: tablePop 1s ease-in-out;
+    }
+
+    @keyframes tablePop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    th, td {
+      border: 1px solid #888;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #ff6f61;
+      color: white;
+      animation: thGlow 2s infinite alternate;
+    }
+
+    @keyframes thGlow {
+      0% { box-shadow: 0 0 10px #ff6f61; }
+      100% { box-shadow: 0 0 20px #ffb88c; }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .loader {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 30px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    footer {
+      margin-top: 3rem;
+      background: #ff6f61;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      animation: footerSlideIn 1s ease-out;
+    }
+
+    @keyframes footerSlideIn {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    #trainTable {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚆 Indian Railway Management System</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html">Book Tickets</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="status.html" class="active">Train Status</a>
+  </nav>
+
+  <main>
+    <h2>Check Train Live Status</h2>
+
+    <div class="search-container">
+      <input id="searchBox" type="text" placeholder="Enter Train No (e.g., 123)">
+      <button onclick="filterTable()">Search</button>
+      <button onclick="resetTable()">Reset</button>
+    </div>
+    <table id="trainTable">
+    <div class="loader" id="loader">Loading train data...</div>
+
+    <table id="trainTable">
+      <thead>
+        <tr>
+          <th>Train No</th>
+          <th>Name</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Seats Available</th>
+        </tr>
+      </thead>
+      <tbody id="trainBody"></tbody>
+    </table>
+  </main>
+
+  <footer>
+    &copy; 2025 Indian Railway Management System. All rights reserved.
+  </footer>
+
+  <script>
+    let trainsData = [];
+
+    fetch('/trains')
+      .then(res => res.json())
+      .then(data => {
+        trainsData = data;
+        renderTable(trainsData);
+      })
+      .catch(err => {
+        console.error('Error loading trains:', err);
+        document.getElementById('loader').innerText = 'Failed to load data.';
+      });
+
+    function renderTable(data) {
+      const table = document.getElementById('trainTable');
+      const tbody = document.getElementById('trainBody');
+      const loader = document.getElementById('loader');
+
+      loader.style.display = 'none';
+      table.style.display = 'table';
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">No trains found.</td></tr>';
+        return;
+      }
+
+      data.forEach(train => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${train.train_no}</td>
+          <td>${train.name}</td>
+          <td>${train.from_station}</td>
+          <td>${train.to_station}</td>
+          <td>${train.departure_time}</td>
+          <td>${train.arrival_time}</td>
+          <td>${train.available_seats}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function filterTable() {
+      const search = document.getElementById('searchBox').value.trim();
+      if (search === '') {
+        renderTable(trainsData);
+        return;
+      }
+      const filtered = trainsData.filter(train =>
+        train.train_no.toString().includes(search)
+      );
+      renderTable(filtered);
+    }
+
+    function resetTable() {
+      document.getElementById('searchBox').value = '';
+      renderTable(trainsData);
+    }
+  </script>
+
+</body>
+</html>

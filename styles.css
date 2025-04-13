@@ -1,0 +1,29 @@
+body {
+  font-family: sans-serif;
+  background: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+.form-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px #aaa;
+  max-width: 400px;
+  width: 100%;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.ticket-box {
+  margin-top: 20px;
+  background: #e0f7fa;
+  padding: 15px;
+  border-radius: 8px;
+}

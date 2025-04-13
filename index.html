@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Indian Railway Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeDown 1s ease-in-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav {
+      background: linear-gradient(90deg, #36d1dc, #5b86e5);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+      transform: scale(1.2) rotate(-5deg);
+    }
+
+    main {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      padding: 2rem;
+      margin: 1rem;
+      max-width: 700px;
+      width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      animation: fadeUp 1s ease-in-out;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h2, .card h3 {
+      margin-bottom: 1rem;
+      color: #ff6a00;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1.5rem;
+      background: linear-gradient(90deg, #36d1dc, #5b86e5);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .card a:hover {
+      background: linear-gradient(90deg, #5b86e5, #36d1dc);
+      transform: scale(1.1);
+    }
+
+    .train-track {
+      margin-top: 3rem;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .train-img {
+      position: absolute;
+      bottom: 10px;
+      left: -250px;
+      width: 200px;
+      height: auto;
+      animation: moveTrain 8s linear infinite;
+    }
+
+    .track-line {
+      width: 100%;
+      height: 10px;
+      background-color: #333;
+      position: absolute;
+      bottom: 0;
+      background-image: linear-gradient(90deg, #555 25%, transparent 25%, transparent 50%, #555 50%, #555 75%, transparent 75%);
+      background-size: 40px 10px;
+    }
+
+    @keyframes moveTrain {
+      0% { left: -250px; }
+      50% { transform: scale(1.1); }
+      100% { left: 110%; }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    footer {
+      margin-top: 3rem;
+      background: linear-gradient(90deg, #36d1dc, #5b86e5);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+      animation: fadeUp 1s ease-in-out;
+    }
+
+    footer:hover {
+      background: linear-gradient(90deg, #5b86e5, #36d1dc);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚆 Indian Railway Management System</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html">Book Tickets</a>
+    <a href="status.html">Train Status</a>
+    <!-- <a href="support.html">Support</a> -->
+    <a href="schedule.html">Schedule</a>
+  </nav>
+
+  <main>
+    <div class="card">
+      <h2>Welcome Aboard!</h2>
+      <p>Plan your journey with real-time train schedules, seat availability, and quick ticket booking.</p>
+    </div>
+
+    <div class="card">
+      <h3>Live Train Timings</h3>
+      <p>Check trains between stations and see their schedule easily.</p>
+      <a href="schedule.html">View Train Schedule</a>
+    </div>
+
+    <div class="train-track">
+      <img src="./train.png" alt="Train" class="train-img" />
+      <div class="track-line"></div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Indian Railway Management System. All rights reserved.
+  </footer>
+
+</body>
+</html>

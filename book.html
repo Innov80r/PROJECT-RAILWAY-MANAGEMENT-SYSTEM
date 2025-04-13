@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Train Ticket | Indian Railway</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      animation: backgroundShift 10s infinite alternate;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeIn 2s ease-out;
+    }
+
+    nav {
+      background-color: #6a11cb;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #ffdd00;
+      transform: scale(1.2);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #ffdd00;
+      left: 50%;
+      bottom: -5px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+      left: 0;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      animation: slideIn 1s ease-out;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #6a11cb;
+      animation: pulse 2s infinite;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #999;
+      font-size: 16px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      box-shadow: 0 0 10px #6a11cb;
+      outline: none;
+    }
+
+    button {
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+      color: white;
+      padding: 10px;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #ee0979, #ff6a00);
+      transform: scale(1.1);
+    }
+
+    #ticket {
+      margin-top: 2rem;
+      background: linear-gradient(to right, #89f7fe, #66a6ff);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      display: none;
+    }
+
+    #ticket.show {
+      display: block;
+      animation: ticketConfirmed 1s ease-out forwards;
+    }
+
+    #error {
+      color: red;
+      text-align: center;
+      font-weight: bold;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    footer {
+      margin-top: 3rem;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      animation: fadeIn 2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    @keyframes backgroundShift {
+      0% { background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb); }
+      100% { background: linear-gradient(to right, #a1c4fd, #c2e9fb, #d4fc79); }
+    }
+
+    @keyframes ticketConfirmed {
+      0% {
+        transform: scale(0.5) rotate(-10deg);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.2) rotate(5deg);
+      }
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚆 Indian Railway Management System</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html" class="active">Book Tickets</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="status.html">Train Status</a>
+  </nav>
+
+  <main>
+    <h2>Book Your Ticket</h2>
+    <form id="bookForm">
+      <label>Name:
+        <input type="text" id="name" required>
+      </label>
+
+      <label>Age:
+        <input type="number" id="age" required>
+      </label>
+
+      <label>From:
+        <select id="fromStation" required>
+          <option value="">Select Source</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Kolkata">Kolkata</option>
+        </select>
+      </label>
+
+      <label>To:
+        <select id="toStation" required>
+          <option value="">Select Destination</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Kolkata">Kolkata</option>
+        </select>
+      </label>
+
+      <button type="submit">Book</button>
+    </form>
+
+    <div id="error"></div>
+    <div id="ticket"></div>
+  </main>
+
+  <footer>
+    &copy; 2025 Indian Railway Management System. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('bookForm').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const from = document.getElementById('fromStation').value;
+      const to = document.getElementById('toStation').value;
+
+      if (from === to) {
+        document.getElementById('error').innerText = "Error: Source and Destination cannot be the same!";
+        return;
+      }
+
+      const seatNo = Math.floor(Math.random() * 100) + 1;
+
+      try {
+        const res = await fetch("http://localhost:8000/book", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, age, from, to, seat_no: seatNo })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || "Failed to book ticket");
+
+        document.getElementById('error').innerText = "";
+        const ticketElement = document.getElementById('ticket');
+        ticketElement.innerHTML = `
+          <h3>🎫 Ticket Confirmed</h3>
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Age:</strong> ${data.age}</p>
+          <p><strong>From:</strong> ${data.from}</p>
+          <p><strong>To:</strong> ${data.to}</p>
+          <p><strong>Seat No:</strong> ${data.seat_no}</p>
+          <p><strong>Status:</strong> Confirmed</p>
+        `;
+        ticketElement.classList.add('show');
+      } catch (err) {
+        document.getElementById('error').innerText = "Booking failed: " + err.message;
+      }
+    });
+  </script>
+
+</body>
+</html>

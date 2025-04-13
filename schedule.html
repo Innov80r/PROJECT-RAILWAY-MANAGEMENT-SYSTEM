@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Train Schedule | Indian Railway Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb);
+      color: #333;
+      animation: backgroundShift 10s infinite alternate;
+    }
+
+    header {
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeDown 1s ease-in-out, colorPulse 3s infinite alternate;
+    }
+
+    nav {
+      background-color: #6a11cb;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      animation: slideIn 1s ease-in-out;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+      transform: scale(1.2);
+      text-shadow: 0 0 10px #ffd700;
+    }
+
+    .active-link {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    .active-schedule-link {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    .highlighted-link {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    main {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-section {
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 600px;
+      animation: popIn 1s ease-in-out;
+    }
+
+    .form-section h2 {
+      margin-bottom: 1rem;
+      color: #6a11cb;
+    }
+
+    label, select, button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+
+    select, button {
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #6a11cb;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #8e44ad;
+      transform: scale(1.1);
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 900px;
+      margin-top: 1rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    table, th, td {
+      border: 1px solid #888;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    th {
+      background-color: #6a11cb;
+      color: white;
+    }
+
+    footer {
+      margin-top: 3rem;
+      background: linear-gradient(90deg, #ee0979, #ff6a00);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      animation: fadeUp 1s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    @keyframes colorPulse {
+      from { background-color: #ff6a00; }
+      to { background-color: #ee0979; }
+    }
+
+    @keyframes backgroundShift {
+      0% { background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb); }
+      100% { background: linear-gradient(to right, #a1c4fd, #c2e9fb, #d4fc79); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚆 Indian Railway Management System</h1>
+    <a href="schedule.html" class="active-schedule-link">Schedule</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="book.html">Book Tickets</a>
+    <a href="schedule.html" style="color: #ffd700; transform: scale(1.1);">Schedule</a>
+    <a href="status.html">Train Status</a>
+  </nav>
+
+  <main>
+    <div class="form-section">
+      <h2>Check Train Schedule</h2>
+      <label for="from">From Station</label>
+      <select id="from">
+        <option value="">Select Source</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Kolkata">Kolkata</option>
+      </select>
+
+      <label for="to">To Station</label>
+      <select id="to">
+        <option value="">Select Destination</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Kolkata">Kolkata</option>
+      </select>
+
+      <button onclick="fetchSchedule()">View Schedule</button>
+    </div>
+
+    <div id="train-table-container"></div>
+  </main>
+
+  <footer>
+    &copy; 2025 Indian Railway Management System. All rights reserved.
+  </footer>
+
+  <script>
+    async function fetchSchedule() {
+        const from = document.getElementById('from').value;
+        const to = document.getElementById('to').value;
+
+        if (!from || !to) {
+            alert("Please select both source and destination stations.");
+            return;
+        }
+
+        // Check if source and destination are the same
+        if (from === to) {
+            alert("Source and destination cannot be the same.");
+            return;
+        }
+
+        try {
+            const res = await fetch(`http://localhost:8000/scheduledTrains?from=${from}&to=${to}`);
+            const trains = await res.json();
+
+            let html = `<table><tr>
+              <th>No</th><th>Name</th><th>From</th><th>To</th><th>Depart</th><th>Arrive</th><th>Status</th><th>Seats</th>
+            </tr>`;
+
+            if (trains.length === 0) {
+                html += `<tr><td colspan="8">No trains found between ${from} and ${to}.</td></tr>`;
+            } else {
+                trains.forEach(train => {
+                    html += `<tr>
+                      <td>${train.train_no}</td>
+                      <td>${train.name}</td>
+                      <td>${train.from_station}</td>
+                      <td>${train.to_station}</td>
+                      <td>${train.departure_time}</td>
+                      <td>${train.arrival_time}</td>
+                      <td>${train.status}</td>
+                      <td>${train.available_seats}</td>
+                    </tr>`;
+                });
+            }
+
+            html += `</table>`;
+            document.getElementById('train-table-container').innerHTML = html;
+
+        } catch (err) {
+            console.error(err);
+            alert("Failed to fetch schedule. Please try again later.");
+        }
+    }
+  </script>
+
+</body>
+</html>
